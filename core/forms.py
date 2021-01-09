@@ -12,7 +12,7 @@ SHAPE = (
     ('Re', 'Rectangle'),
     ('S', 'Square'),
     ('C', 'Custom')
-    
+
 )
 
 LEVELS = (
@@ -27,11 +27,6 @@ FLAVORS = (
     ('S', 'Strawberry'),
     ('V', 'Vanilla')
 )
-
-class HomeForm(forms.Form):
-    shape = forms.ChoiceField(, choices=[SHAPE] ,widget=forms.RadioSelect, required=False)
-    levels = forms.ChoiceField(, choices=[LEVELS] ,widget=forms.RadioSelect, required=False)
-    flavors = forms.ChoiceField(, choices=[FLAVORS] ,widget=forms.RadioSelect, required=False)
 
 
 class CheckoutForm(forms.Form):
