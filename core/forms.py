@@ -83,5 +83,5 @@ class PaymentForm(forms.Form):
 
 class OrderForm(forms.Form):
     email = forms.EmailField()
-    phone_number = forms.FloatField()
+    phone_number = forms.CharField()
     preference = forms.CharField()

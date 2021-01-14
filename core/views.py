@@ -363,7 +363,7 @@ class HomeView(ListView):
 
             custom = CustomOrder()
             custom.email = email
-            custom.phone = phone
+            custom.phone_number = phone
             custom.preference = preference
             custom.save()
             messages.success(

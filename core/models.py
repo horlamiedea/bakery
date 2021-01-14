@@ -180,7 +180,7 @@ class Refund(models.Model):
 
 class CustomOrder(models.Model):
     email = models.EmailField()
-    phone_number = models.FloatField()
+    phone_number = models.TextField()
     preference = models.TextField()
 
     def __str__(self):
