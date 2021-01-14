@@ -346,13 +346,11 @@ class PaymentView(View):
 
 
 class HomeView(ListView):
-    def get(self, *args, **kwargs):
-        model = Item
-        form = CustomOrder()
-        context = {
-            'form': form
-        }
-        return render(self.request, "oreofe/home.html", context)
+    model = Item
+    template_name = 'oreofe/home.html'
+    # def get(self, *args, **kwargs):
+    #     context_object_name = 'items'
+    #     return render(self.request, "")
 
     def post(self, *args, **kwargs):
         form = CustomOrder(self.request.POST)
@@ -390,7 +388,6 @@ class OrderSummaryView(LoginRequiredMixin, View):
 class ItemDetailView(DetailView):
     model = Item
     items = Item.objects.all()
-    random_item = random.choice(items)
     template_name = "product.html"
 
 
