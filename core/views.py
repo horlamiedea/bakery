@@ -12,8 +12,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 
-from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
-from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile
+from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm, OrderForm
+from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, CustomOrder, UserProfile
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -346,8 +346,32 @@ class PaymentView(View):
 
 
 class HomeView(ListView):
-    model = Item
-    template_name = "oreofe/home.html"
+    def get(self, *args, **kwargs):
+        model = Item
+        form = CustomOrder()
+        context = {
+            'form': form
+        }
+        return render(self.request, "oreofe/home.html", context)
+
+    def post(self, *args, **kwargs):
+        form = CustomOrder(self.request.POST)
+        if self.request.method == 'POST':
+            email = self.request.POST.get('email')
+            phone = self.request.POST.get('phone')
+            preference = self.request.POST.get('preference')
+
+            custom = CustomOrder()
+            custom.email = email
+            custom.phone = phone
+            custom.preference = preference
+            custom.save()
+            messages.success(
+                self.request, "You have placed a custom order successfully, please check your email, we'd send you a confirmation mail also your phone number should be valid")
+            return render(self.request, 'oreofe/home.html')
+
+        else:
+            return render(self.request, 'oreofe/home.html')
 
 
 class OrderSummaryView(LoginRequiredMixin, View):

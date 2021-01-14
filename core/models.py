@@ -178,6 +178,13 @@ class Refund(models.Model):
         return f"{self.pk}"
 
 
+class CustomOrder(models.Model):
+    email = models.EmailField()
+    phone_number = models.FloatField()
+    preference = models.TextField()
+
+    def __str__(self):
+        return self.email
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
